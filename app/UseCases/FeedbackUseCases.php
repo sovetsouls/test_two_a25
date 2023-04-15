@@ -14,6 +14,7 @@ class FeedbackUseCases
         $feedback->title = $data->title;
         $feedback->description = $data->description;
         $feedback->save();
+        $feedback->refresh();
 
         return $feedback;
     }

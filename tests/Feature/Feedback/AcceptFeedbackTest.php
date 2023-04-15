@@ -24,13 +24,18 @@ class AcceptFeedbackTest extends TestCase
 
     public function test_accept_fromApi()
     {
-        $response = $this->postJson(route('api.feedback.store'), [
+        $response = $this->postJson(route('api.feedbacks.store'), [
             'title' => 'Test title',
             'description' => 'Test description',
         ]);
 
         $response->assertStatus(201);
-        $response->assertJson([
+        $response->assertJsonStructure(['id']);
+
+        $id = $response->json('id');
+        $responseFeedback = $this->getJson(route('api.feedbacks.show', ['feedback' => $id]));
+        $responseFeedback->assertStatus(200);
+        $responseFeedback->assertJson([
             'title' => 'Test title',
             'description' => 'Test description',
         ]);
