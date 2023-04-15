@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{
+    Feedback\FeedbackController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -13,3 +15,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::name('api.')->group(function () {
+    Route::resource('feedback', FeedbackController::class)->only('store');
+});
