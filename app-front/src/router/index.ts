@@ -6,13 +6,17 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-            path: '/form/create',
-            name: 'form-create',
+            path: '/:pathMatch(.*)*',
+            redirect: { name: 'feedback-create' }
+        },
+        {
+            path: '/feedback/create',
+            name: 'feedback-create',
             component: FormCreatePage
         },
         {
-            path: '/form/show',
-            name: 'form-show',
+            path: '/feedback/:id',
+            name: 'feedback-show',
             component: FormShowPage
         }
     ]
