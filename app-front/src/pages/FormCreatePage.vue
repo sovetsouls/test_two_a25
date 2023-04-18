@@ -12,6 +12,9 @@
                 focus-visible:outline-brand-2 outline-2
             " type="text" v-model="data.title">
             </label>
+            
+            <input v-model="data.datetime" type="datetime-local" />
+
             <label class="flex flex-col gap-y-0.5 text-gray-500 focus-within:text-brand-2">
                 <span class="text-lg">Описание</span>
                 <textarea class="
@@ -39,6 +42,7 @@ import router from '@/router';
 const data = reactive({
     description: '',
     title: '',
+    datetime: '',
 });
 
 const sendForm = async () => {
@@ -55,7 +59,8 @@ const sendForm = async () => {
 const sendFormImpl = async () => {
     return await axios.post<StoreFeedbackResponse>(env.backend_url + '/feedbacks', {
         'description': data.description,
-        'title': data.title
+        'title': data.title,
+        'datetime':  new Date(data.datetime).getTime()
     });
 }
 

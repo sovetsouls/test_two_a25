@@ -8,6 +8,7 @@
         ">
             <div v-if="feedback.isLoaded" class="flex flex-col gap-y-1">
                 <h1 class="text-3xl font-medium text-gray-500">{{ feedback.title }}</h1>
+                <p class="text-base text-gray-500">{{ datetime  }}</p>
                 <p class="text-base text-gray-500">{{ feedback.description }}</p>
             </div>
             <div>
@@ -34,7 +35,7 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { onBeforeMount, reactive } from 'vue';
+import { onBeforeMount, reactive, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import env from '@/env.json';
 
@@ -42,8 +43,13 @@ const idFromRouter = useRoute().params.id
 const feedback = reactive({
     title: '',
     description: '',
+    datetime: '',
     isLoaded: false
 });
+
+const datetime = computed(() => {
+    return new Date(Number(feedback.datetime)).toLocaleString()
+})
 
 onBeforeMount(() => {
     axios.get<FeedbackResponse>(env.backend_url + `/feedbacks/${idFromRouter}`)
@@ -51,6 +57,7 @@ onBeforeMount(() => {
             const feedbackResponseData = feedbackResponse.data;
             feedback.title = feedbackResponseData.title;
             feedback.description = feedbackResponseData.description;
+            feedback.datetime = feedbackResponseData.datetime;
             feedback.isLoaded = true;
         }).catch(error => {
             alert(error);
@@ -60,5 +67,6 @@ onBeforeMount(() => {
 interface FeedbackResponse {
     title: string;
     description: string;
+    datetime: string;
 }
 </script>

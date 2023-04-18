@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Feedback;
 use App\UseCases\AcceptFeedbackData;
 use App\UseCases\FeedbackUseCases;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -18,6 +20,7 @@ class FeedbackController extends Controller
         $feedback = app(FeedbackUseCases::class)->acceptFeedback(new AcceptFeedbackData(
             title: $data['title'],
             description: $data['description'],
+            datetime: $this->convertTimestampToDT($data['datetime']),
         ));
 
         return response()->json([
@@ -29,7 +32,15 @@ class FeedbackController extends Controller
     {
         return response()->json([
             'title' => $feedback->title,
-            'description' => $feedback->description
+            'description' => $feedback->description,
+            'datetime' => DateTime::createFromFormat('Y-m-d H:i:s', $feedback->datetime)->getTimestamp()
         ]);
+    }
+
+    private function convertTimestampToDT($microtime) 
+    {
+        $dt = DateTime::createFromFormat('U', floor($microtime / 1000));
+        $dt->setTimeZone(new DateTimeZone('Europe/Moscow'));
+        return $dt;
     }
 }
