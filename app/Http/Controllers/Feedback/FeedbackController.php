@@ -9,7 +9,6 @@ use App\UseCases\FeedbackUseCases;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
 {
@@ -37,7 +36,7 @@ class FeedbackController extends Controller
         ]);
     }
 
-    private function convertTimestampToDT($microtime) 
+    private function convertTimestampToDT($microtime): DateTime
     {
         $dt = DateTime::createFromFormat('U', floor($microtime / 1000));
         $dt->setTimeZone(new DateTimeZone('Europe/Moscow'));

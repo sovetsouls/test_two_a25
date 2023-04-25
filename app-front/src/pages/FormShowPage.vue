@@ -6,10 +6,10 @@
             w-[500px] -mt-14 p-8
             flex flex-col gap-y-5
         ">
-            <div v-if="feedback.isLoaded" class="flex flex-col gap-y-1">
+            <div v-if="feedback.isLoaded" class="flex flex-col">
                 <h1 class="text-3xl font-medium text-gray-500">{{ feedback.title }}</h1>
-                <p class="text-base text-gray-500">{{ datetime  }}</p>
-                <p class="text-base text-gray-500">{{ feedback.description }}</p>
+                <p class="text-sm text-gray-400">{{ datetime }}</p>
+                <p class="text-base mt-2 text-gray-500">{{ feedback.description }}</p>
             </div>
             <div>
                 <RouterLink

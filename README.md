@@ -25,7 +25,7 @@ UseCases:
 Необходимо иметь локально: `PHP 8+`, `Composer 2+`, `Node 16+`, `npm 8+`.
 
 ```shell
-copy .env.example .env
+cp .env.example .env
 ```
 
 Настройте `.env` в соответствии с вашей системой (установите ключи `DB_`). Создайте базу данных на основе установленных ключей.
@@ -35,10 +35,10 @@ php script install
 php artisan test
 cd ./app-front
 npm ci
-copy ./src/.env.example.json ./src/.env.json
+cp src/env.example.json src/env.json
 ```
 
-Настройки в `.env.json` настроены на дефолтный порт `artisan serve`. Если запускаете по другому — поменяйте настройки.
+Настройки в `env.json` настроены на дефолтный порт `artisan serve`. Если запускаете по другому — поменяйте настройки.
 
 ## Запуск
 
